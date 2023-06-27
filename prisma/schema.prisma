@@ -1,0 +1,18 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("jdbc:postgresql://10.0.0.193:5432/gympass")
+}
+
+model User {
+  @@map("users")
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String                      
+}

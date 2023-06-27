@@ -6,5 +6,5 @@ app
     port: 3333,
   })
   .then(() => {
-    console.log(`Server listening on ${process.env.PORT}`);
+    console.log(`Server listening on ${process.env.NODE_PORT}`);
   });

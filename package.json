@@ -1,0 +1,23 @@
+{
+  "name": "03-nodejs-gympass-rocketseat",
+  "version": "1.0.0",
+  "description": "API com Solid e testes para atender a regra de negócio de um app similiar ao Gympass.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "tsup": "^7.1.0",
+    "tsx": "^3.12.7",
+    "typescript": "^5.1.3"
+  },
+  "dependencies": {
+    "fastify": "^4.18.0"
+  }
+}

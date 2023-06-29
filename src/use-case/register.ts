@@ -8,29 +8,27 @@ type registerUseCaseParams = {
   name: string;
 };
 
-export async function registerUseCase({
-  email,
-  name,
-  password,
-}: registerUseCaseParams) {
-  const password_hash = await hash(password, 6);
+export class RegisterUseCase {
+  constructor(private usersRepository: any) {}
 
-  const userWithEmail = await prisma.user.findUnique({
-    where: {
+  async execute({ email, name, password }: registerUseCaseParams) {
+    const password_hash = await hash(password, 6);
+
+    const userWithEmail = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+    if (userWithEmail) {
+      throw new Error("Email already in use");
+    }
+
+    const user = await this.usersRepository.create({
       email,
-    },
-  });
-  if (userWithEmail) {
-    throw new Error("Email already in use");
+      name,
+      password_hash,
+    });
+
+    return user;
   }
-
-  const prismaUsersRepository = new PrismaUsersRepository();
-
-  const user = await prismaUsersRepository.create({
-    email,
-    name,
-    password_hash,
-  });
-
-  return user;
 }

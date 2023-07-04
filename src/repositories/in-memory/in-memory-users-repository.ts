@@ -1,3 +1,4 @@
+import { GetResult } from "@prisma/client/runtime";
 import { UserRepository } from "../users-repository";
 import { User, Prisma } from "@prisma/client";
 
@@ -16,6 +17,11 @@ export class InMemoryUsersRepository implements UserRepository {
 
   async findByEmail(email: string) {
     const user = this.users.find((user) => user.email === email);
+    return user;
+  }
+
+  async findById(id: string) {
+    const user = this.users.find((user) => user.id === id);
     return user;
   }
 }

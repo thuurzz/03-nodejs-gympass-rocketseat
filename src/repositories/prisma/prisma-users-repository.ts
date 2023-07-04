@@ -25,4 +25,13 @@ export class PrismaUsersRepository implements UserRepository {
 
     return userAlreadyExists;
   }
+
+  async findById(id: string): Promise<User | null | undefined> {
+    const userAlreadyExists = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+    return userAlreadyExists;
+  }
 }

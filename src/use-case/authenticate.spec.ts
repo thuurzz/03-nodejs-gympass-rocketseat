@@ -1,19 +1,19 @@
 import { expect, describe, it, beforeEach } from "vitest";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
-import { Authenticate } from "./authenticate";
+import { AuthenticateUseCase } from "./authenticate";
 import { hash } from "bcryptjs";
 import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
 
 let usersRepository: InMemoryUsersRepository;
-let sut: Authenticate;
+let sut: AuthenticateUseCase;
 
 describe("Authenticate Use Case", () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository();
-    sut = new Authenticate(usersRepository);
+    sut = new AuthenticateUseCase(usersRepository);
   });
 
-  it("should to authenticate", async () => {
+  it("should to be authenticate", async () => {
     await usersRepository.create({
       name: "John Doe",
       email: "johndoe@example.com",

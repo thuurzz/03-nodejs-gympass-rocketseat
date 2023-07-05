@@ -1,14 +1,29 @@
 import { expect, describe, it, beforeEach, vi, afterEach } from "vitest";
 import { InMemoryCheckInRepository } from "@/repositories/in-memory/in-memory-check-in-repository";
+import { InMemoryGymsRepository } from "@/repositories/in-memory/in-memory-gyms-repository";
+import { Gym } from "@prisma/client";
 import { CheckInUseCase } from "./check-in";
+import { Decimal } from "@prisma/client/runtime";
 
 let checkInRepository: InMemoryCheckInRepository;
+let gymsRepository: InMemoryGymsRepository;
 let sut: CheckInUseCase;
 
 describe("Check in Use Case", () => {
   beforeEach(() => {
     checkInRepository = new InMemoryCheckInRepository();
-    sut = new CheckInUseCase(checkInRepository);
+    gymsRepository = new InMemoryGymsRepository();
+    sut = new CheckInUseCase(checkInRepository, gymsRepository);
+
+    const gym: Gym = {
+      id: "any_gym_id",
+      title: "FerruGym",
+      description: "",
+      phone: "",
+      latitude: new Decimal(0),
+      longitude: new Decimal(0),
+    };
+    gymsRepository.gyms.push(gym);
 
     vi.useFakeTimers();
   });
@@ -21,6 +36,8 @@ describe("Check in Use Case", () => {
     const { checkIn } = await sut.execute({
       gymId: "any_gym_id",
       userId: "any_user_id",
+      userLatitude: -23.4258386,
+      userLongitude: -46.5836981,
     });
 
     expect(checkIn.id).toEqual(expect.any(String));
@@ -32,12 +49,16 @@ describe("Check in Use Case", () => {
     await sut.execute({
       gymId: "any_gym_id",
       userId: "any_user_id",
+      userLatitude: -23.4258386,
+      userLongitude: -46.5836981,
     });
 
     await expect(() =>
       sut.execute({
         gymId: "any_gym_id",
         userId: "any_user_id",
+        userLatitude: -23.4258386,
+        userLongitude: -46.5836981,
       })
     ).rejects.toBeInstanceOf(Error);
   });
@@ -48,6 +69,8 @@ describe("Check in Use Case", () => {
     await sut.execute({
       gymId: "any_gym_id",
       userId: "any_user_id",
+      userLatitude: -23.4258386,
+      userLongitude: -46.5836981,
     });
 
     vi.setSystemTime(new Date("2023-03-02 10:00:00"));
@@ -55,6 +78,8 @@ describe("Check in Use Case", () => {
     const checkInOnAnotherDay = await sut.execute({
       gymId: "any_gym_id",
       userId: "any_user_id",
+      userLatitude: -23.4258386,
+      userLongitude: -46.5836981,
     });
 
     expect(checkInOnAnotherDay.checkIn.id).toEqual(expect.any(String));

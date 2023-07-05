@@ -1,4 +1,3 @@
-import { UserRepository } from "@/repositories/users-repository";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { CheckIn } from "@prisma/client";
 import { CheckInsRepository } from "@/repositories/check-ins-repository";

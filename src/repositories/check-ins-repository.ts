@@ -1,6 +1,7 @@
 import { CheckIn, Prisma } from "@prisma/client";
 
 export interface CheckInsRepository {
+  countByUserId(userId: string): Promise<number>;
   findManyByUserId(
     userId: string,
     page: number

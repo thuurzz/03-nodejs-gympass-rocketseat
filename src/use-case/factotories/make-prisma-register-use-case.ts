@@ -7,4 +7,3 @@ export function makePrismaRegisterUseCase() {
 
   return registerUseCase;
 }
-

@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
 }
 
 // configração para usar postgresql
@@ -17,13 +18,13 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(uuid())
-  email         String    @unique
+  id            String   @id @default(uuid())
+  email         String   @unique
   name          String
   password_hash String
-  created_at    DateTime  @default(now())
-  
-  checkIns      CheckIn[]
+  created_at    DateTime @default(now())
+
+  checkIns CheckIn[]
 
   @@map("users")
 }

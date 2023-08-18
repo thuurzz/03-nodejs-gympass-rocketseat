@@ -16,8 +16,8 @@ COPY . .
 # Compila o TypeScript para JavaScript
 RUN npm run build
 
-# Coencta ao banco de dados
-RUN npm run prisma:db-push
+# # Coencta ao banco de dados
+# RUN npm run prisma:db-push
 
 # Expor a porta 3000
 EXPOSE 3000

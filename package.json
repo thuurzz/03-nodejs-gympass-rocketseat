@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "start": "npx prisma generate; node build/server.js",
-    "build": "npm run db-deploy; tsup src --out-dir build",
+    "start": "npm run db-generate; node build/server.js",
+    "build": "tsup src --out-dir build",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
+    "db-generate": "npx prisma generate",
     "db-deploy": "npx prisma migrate deploy"
   },
   "keywords": [],

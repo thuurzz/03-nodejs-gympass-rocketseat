@@ -8,17 +8,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
     ports:
-      - 3001:3000
+      - 3000:3000
     environment:
       - DATABASE_URL=postgresql://gymuser:p4ssw0rd@db:5432/gympass?schema=public
       - NODE_ENV=production
-    
-    
     networks:
       - gympass-network
-
     depends_on:
       - db
 

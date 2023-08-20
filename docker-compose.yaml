@@ -1,5 +1,19 @@
 version: "3"
 services:
+  app:
+    image: node:18
+    working_dir: /usr/src/app
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://gymuser:p4ssw0rd@db/gympass
+    volumes:
+      - .:/usr/src/app
+    command: sh -c "npm install --verbose && npm run build --verbose && npm start --verbose"
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+
   db:
     image: postgres
     restart: always
@@ -8,6 +22,9 @@ services:
       POSTGRES_USER: gymuser
       POSTGRES_DB: gympass
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+volumes:
+  postgres_data:

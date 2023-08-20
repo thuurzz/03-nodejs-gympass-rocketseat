@@ -6,16 +6,16 @@ generator client {
   binaryTargets = ["native", "linux-arm64-openssl-3.0.x"]
 }
 
-// configração para usar postgresql
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
+//configração para usar postgresql
 datasource db {
-  provider = "sqlite"
-  url      = "file:./gym-sqlite.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
+
+// datasource db {
+//   provider = "sqlite"
+//   url      = "file:./gym-sqlite.db"
+// }
 
 model User {
   id            String   @id @default(uuid())
